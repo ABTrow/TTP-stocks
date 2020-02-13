@@ -1,5 +1,5 @@
 const router = require('express').Router()
-const {User} = require('../db/models')
+const {User, Holding, Stock} = require('../db/models')
 module.exports = router
 
 router.get('/', async (req, res, next) => {
@@ -11,7 +11,21 @@ router.get('/', async (req, res, next) => {
       attributes: ['id', 'email']
     })
     res.json(users)
-  } catch (err) {
-    next(err)
+  } catch (err0r) {
+    next(err0r)
+  }
+})
+
+router.get('/:userId/holdings', async (req, res, next) => {
+  try {
+    let portfolio = await Holding.findAll({
+      where: {
+        userId: req.params.userId
+      },
+      include: [{model: Stock}]
+    })
+    res.send(portfolio)
+  } catch (error) {
+    next(error)
   }
 })
