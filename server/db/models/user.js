@@ -33,7 +33,7 @@ const User = db.define('user', {
       return this.getDataValue('cash') / 100
     },
     set(unformattedValue) {
-      this.setDataValue('cash', unformattedValue * 100)
+      this.setDataValue('cash', Math.round(unformattedValue * 100))
     }
   },
   password: {

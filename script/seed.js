@@ -43,12 +43,49 @@ async function seed() {
       userId: 1,
       stockId: 2,
       shares: 5
+    }),
+    Holding.create({
+      userId: 2,
+      stockId: 2,
+      shares: 500
+    })
+  ])
+
+  const transactions = await Promise.all([
+    Transaction.create({
+      userId: 1,
+      stockId: 1,
+      type: 'purchase',
+      shares: 10,
+      price: 19.91
+    }),
+    Transaction.create({
+      userId: 1,
+      stockId: 2,
+      type: 'purchase',
+      shares: 5,
+      price: 8.32
+    }),
+    Transaction.create({
+      userId: 2,
+      stockId: 1,
+      type: 'sale',
+      shares: 50,
+      price: 32.55
+    }),
+    Transaction.create({
+      userId: 2,
+      stockId: 2,
+      type: 'purchase',
+      shares: 500,
+      price: 8.32
     })
   ])
 
   console.log(`seeded ${users.length} users`)
   console.log(`seeded ${stocks.length} stocks`)
   console.log(`seeded ${holdings.length} holdings`)
+  console.log(`seeded ${transactions.length} transactions`)
   console.log(`seeded successfully`)
 }
 

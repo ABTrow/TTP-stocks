@@ -3,11 +3,17 @@ const Stock = require('./stock')
 const Holding = require('./holding')
 const Transaction = require('./transaction')
 
-User.belongsToMany(Stock, {through: 'holding'})
-Stock.belongsToMany(User, {through: 'holding'})
+User.hasMany(Holding)
+Holding.belongsTo(User)
 
-User.belongsToMany(Stock, {through: 'transaction'})
-Stock.belongsToMany(User, {through: 'transaction'})
+Stock.hasMany(Holding)
+Holding.belongsTo(Stock)
+
+User.hasMany(Transaction)
+Transaction.belongsTo(User)
+
+Stock.hasMany(Transaction)
+Transaction.belongsTo(Stock)
 
 module.exports = {
   User,

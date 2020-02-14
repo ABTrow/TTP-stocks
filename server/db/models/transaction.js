@@ -6,7 +6,7 @@ const Transaction = db.define('transaction', {
     type: Sequelize.STRING,
     allowNull: false,
     validate: {
-      isIn: ['purchase', 'sale']
+      isIn: [['purchase', 'sale']]
     }
   },
   shares: {
@@ -23,10 +23,10 @@ const Transaction = db.define('transaction', {
       min: 0
     },
     get() {
-      return this.getDataValue('cash') / 100
+      return this.getDataValue('price') / 100
     },
     set(unformattedValue) {
-      this.setDataValue('cash', unformattedValue * 100)
+      this.setDataValue('price', Math.round(unformattedValue * 100))
     }
   }
 })
