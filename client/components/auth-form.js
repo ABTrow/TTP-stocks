@@ -2,6 +2,7 @@ import React from 'react'
 import {connect} from 'react-redux'
 import PropTypes from 'prop-types'
 import {auth} from '../store'
+import {authError} from '../store/errors'
 
 /**
  * COMPONENT
@@ -69,23 +70,33 @@ const mapSignup = state => {
 
 const mapDispatch = dispatch => {
   return {
-    handleSubmit(evt) {
+    handleSubmit: evt => {
       evt.preventDefault()
+      const formName = evt.target.name
+      const email = evt.target.email.value
+      const password = evt.target.password.value
       let firstName, lastName
 
-      if (evt.target.fullName) {
+      if (formName === 'signup') {
+        if (password.length < 8) {
+          dispatch(
+            authError({
+              response: {data: 'Password must be at least 8 characters'}
+            })
+          )
+          return
+        }
         const splitIndex = evt.target.fullName.value.lastIndexOf(' ')
-        console.log(splitIndex)
         if (splitIndex < 1) {
+          dispatch(
+            authError({response: {data: 'Must enter a First and Last Name'}})
+          )
           return
         }
         firstName = evt.target.fullName.value.slice(0, splitIndex)
         lastName = evt.target.fullName.value.slice(splitIndex + 1)
       }
 
-      const formName = evt.target.name
-      const email = evt.target.email.value
-      const password = evt.target.password.value
       dispatch(auth(email, password, formName, firstName, lastName))
     }
   }
