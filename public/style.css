@@ -10,6 +10,11 @@ label {
   display: block;
 }
 
+nav {
+  display: flex;
+  align-items: center;
+}
+
 nav a {
   display: inline-block;
   margin: 1em;
@@ -18,4 +23,29 @@ nav a {
 form div {
   margin: 1em;
   display: inline-block;
+}
+
+table {
+  border-collapse: collapse;
+}
+
+td {
+  padding: 0.5rem;
+  border: none;
+  border-bottom: 1px solid darkgray;
+}
+
+td.right {
+  text-align: right;
+}
+
+#portfolio-page {
+  display: flex;
+  justify-content: space-between;
+  padding: 2rem;
+}
+
+#purchase-form {
+  display: flex;
+  flex-direction: column;
 }

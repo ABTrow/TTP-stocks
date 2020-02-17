@@ -1,17 +1,17 @@
 import React from 'react'
 import {connect} from 'react-redux'
-import {QuoteForm, PurchaseForm} from './'
+import {PurchaseForm} from './'
 
 const Purchase = props => {
-  let {stock} = props
+  let {stock, userCash} = props
   return (
     <div>
+      <h2>Cash - ${userCash}</h2>
       {stock && (
         <div>
           {stock.symbol} {stock.companyName} {stock.latestPrice}
         </div>
       )}
-      <QuoteForm />
       <PurchaseForm />
     </div>
   )
@@ -19,7 +19,8 @@ const Purchase = props => {
 
 const mapState = state => {
   return {
-    stock: state.stock
+    stock: state.stock,
+    userCash: state.user.cash
   }
 }
 

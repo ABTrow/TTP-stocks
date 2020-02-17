@@ -1,6 +1,7 @@
 import React from 'react'
 import {connect} from 'react-redux'
 import {buyStock} from '../store/portfolio'
+import {getQuote} from '../store/stock'
 
 class PurchaseForm extends React.Component {
   constructor() {
@@ -15,15 +16,20 @@ class PurchaseForm extends React.Component {
     this.setState({[event.target.name]: event.target.value})
   }
 
-  handleSubmit = () => {
+  handlePurchase = () => {
     event.preventDefault()
     this.props.buyStock(this.state.symbol, this.state.shares)
     this.setState({symbol: '', shares: 0})
   }
 
+  handleQuote = () => {
+    event.preventDefault()
+    this.props.getQuote(this.state.symbol)
+  }
+
   render() {
     return (
-      <div>
+      <div id="purchase-form">
         <input
           type="text"
           name="symbol"
@@ -39,7 +45,10 @@ class PurchaseForm extends React.Component {
           value={this.state.shares}
           onChange={event => this.handleChange(event)}
         />
-        <button type="submit" onClick={this.handleSubmit}>
+        <button type="submit" onClick={this.handleQuote}>
+          Get Quote
+        </button>
+        <button type="submit" onClick={this.handlePurchase}>
           Purchase Shares
         </button>
       </div>
@@ -49,7 +58,8 @@ class PurchaseForm extends React.Component {
 
 const mapDispatch = dispatch => {
   return {
-    buyStock: (symbol, shares) => dispatch(buyStock(symbol, shares))
+    buyStock: (symbol, shares) => dispatch(buyStock(symbol, shares)),
+    getQuote: quote => dispatch(getQuote(quote))
   }
 }
 

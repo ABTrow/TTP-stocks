@@ -1,15 +1,24 @@
 import axios from 'axios'
+import {updateCash} from './user'
 
 const GOT_HOLDINGS = 'GOT_HOLDINGS'
-const BOUGHT_STOCK = 'BOUGHT_STOCK'
 
-const gotHoldings = holdings => ({type: GOT_HOLDINGS, holdings})
-const boughtStock = stock => ({type: BOUGHT_STOCK, stock})
+const gotHoldings = (holdings, totalValue) => ({
+  type: GOT_HOLDINGS,
+  holdings,
+  totalValue
+})
 
 export const getHoldings = userId => async dispatch => {
   try {
     let {data} = await axios.get(`/api/users/${userId}/holdings`)
-    dispatch(gotHoldings(data))
+    let formattedPortfolio = data.portfolio.map((holding, idx) => {
+      return {...holding, latestPrice: data.portfolioPrices[idx]}
+    })
+    let totalValue = formattedPortfolio.reduce((a, b) => {
+      return a + b.shares * b.latestPrice
+    }, 0)
+    dispatch(gotHoldings(formattedPortfolio, totalValue))
   } catch (error) {
     console.error(error)
   }
@@ -18,22 +27,20 @@ export const getHoldings = userId => async dispatch => {
 export const buyStock = (symbol, shares) => async dispatch => {
   try {
     let {data} = await axios.post(`api/transactions`, {symbol, shares})
-    console.log(data)
-    dispatch(boughtStock({...data.holding, stock: data.stock}))
+    await dispatch(getHoldings(data.id))
+    dispatch(updateCash(data.cash))
   } catch (error) {
-    console.error(error)
+    console.error(error.status)
   }
 }
 
 /**
  * REDUCER
  */
-export default function(state = [], action) {
+export default function(state = {holdings: [], totalValue: 0}, action) {
   switch (action.type) {
     case GOT_HOLDINGS:
-      return [...action.holdings]
-    case BOUGHT_STOCK:
-      return [...state, action.stock]
+      return {holdings: [...action.holdings], value: action.totalValue}
     default:
       return state
   }

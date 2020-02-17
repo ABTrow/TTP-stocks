@@ -7,7 +7,6 @@ const gotQuote = stock => ({type: GOT_QUOTE, stock})
 export const getQuote = symbol => async dispatch => {
   try {
     let {data} = await axios.get(`api/stocks/${symbol}`)
-    console.log(data)
     dispatch(gotQuote(data))
   } catch (error) {
     console.error(error)

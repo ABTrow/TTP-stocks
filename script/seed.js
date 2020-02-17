@@ -55,28 +55,28 @@ async function seed() {
     Transaction.create({
       userId: 1,
       stockId: 1,
-      type: 'purchase',
+      type: 'buy',
       shares: 10,
       price: 19.91
     }),
     Transaction.create({
       userId: 1,
       stockId: 2,
-      type: 'purchase',
+      type: 'buy',
       shares: 5,
       price: 8.32
     }),
     Transaction.create({
       userId: 2,
       stockId: 1,
-      type: 'sale',
+      type: 'sell',
       shares: 50,
       price: 32.55
     }),
     Transaction.create({
       userId: 2,
       stockId: 2,
-      type: 'purchase',
+      type: 'buy',
       shares: 500,
       price: 8.32
     })

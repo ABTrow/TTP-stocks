@@ -13,7 +13,7 @@ router.get('/:symbol', async (req, res, next) => {
     await Stock.findOrCreate({
       where: {symbol: data.symbol, name: data.companyName}
     })
-    res.send(data)
+    res.status(200).send(data)
   } catch (error) {
     next(error)
   }

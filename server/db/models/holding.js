@@ -5,8 +5,9 @@ const Holding = db.define('holding', {
   shares: {
     type: Sequelize.INTEGER,
     allowNull: false,
+    defaultValue: 0,
     validate: {
-      min: 1
+      min: 0
     }
   }
 })

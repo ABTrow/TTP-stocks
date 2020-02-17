@@ -10,14 +10,25 @@ class Portfolio extends React.Component {
   render() {
     return (
       <div>
-        {this.props.portfolio.map(holding => {
-          return (
-            <div key={holding.id}>
-              <span>{holding.stock.name}</span>
-              <span>{holding.shares}</span>
-            </div>
-          )
-        })}
+        <table>
+          <tbody>
+            {this.props.portfolio.holdings.map(holding => {
+              return (
+                <tr key={holding.id}>
+                  <td>
+                    {holding.stock.symbol}
+                    <small>({holding.stock.name})</small>
+                  </td>
+                  <td className="right">{holding.shares} Shares @</td>
+                  <td className="right">${holding.latestPrice.toFixed(2)}</td>
+                  <td>
+                    Total: ${(holding.latestPrice * holding.shares).toFixed(2)}
+                  </td>
+                </tr>
+              )
+            })}
+          </tbody>
+        </table>
       </div>
     )
   }

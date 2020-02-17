@@ -6,7 +6,7 @@ const Transaction = db.define('transaction', {
     type: Sequelize.STRING,
     allowNull: false,
     validate: {
-      isIn: [['purchase', 'sale']]
+      isIn: [['buy', 'sell']]
     }
   },
   shares: {

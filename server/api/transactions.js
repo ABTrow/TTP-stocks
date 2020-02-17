@@ -13,30 +13,35 @@ router.post('/', async (req, res, next) => {
     let [stock, _] = await Stock.findOrCreate({
       where: {symbol: data.symbol, name: data.companyName}
     })
+    let user = await User.findByPk(req.user.id)
     if (!data) {
       res.status(404).send('no such stock symbol')
       return
     }
-    if (data.latestPrice * req.body.shares > req.user.cash) {
+    if (data.latestPrice * req.body.shares > user.cash) {
       res.status(400).send('insufficient funds')
     } else {
-      await Transaction.create({
+      let transaction = await Transaction.create({
         userId: req.user.id,
         stockId: stock.id,
-        type: 'purchase',
+        type: 'buy',
         shares: req.body.shares,
         price: data.latestPrice
       })
-      let newHolding = await Holding.create(
-        {
+      let [newHolding, _] = await Holding.findOrCreate({
+        where: {
           userId: req.user.id,
-          stockId: stock.id,
-          shares: req.body.shares
+          stockId: stock.id
         },
-        {include: [{model: Stock}]}
-      )
-      let stockInfo = await newHolding.getStock()
-      res.status(201).json({holding: newHolding, stock: stockInfo})
+        include: [{model: Stock}]
+      })
+      newHolding.shares += transaction.shares
+      user.cash -= transaction.shares * transaction.price
+
+      await newHolding.save()
+      await user.save()
+
+      res.status(201).json(user)
     }
   } catch (error) {
     next(error)
