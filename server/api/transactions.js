@@ -14,12 +14,10 @@ router.post('/', async (req, res, next) => {
       where: {symbol: data.symbol, name: data.companyName}
     })
     let user = await User.findByPk(req.user.id)
-    if (!data) {
-      res.status(404).send('no such stock symbol')
-      return
-    }
+
     if (data.latestPrice * req.body.shares > user.cash) {
-      res.status(400).send('insufficient funds')
+      res.status(400).send('Insufficient funds.')
+      return
     } else {
       let transaction = await Transaction.create({
         userId: req.user.id,
@@ -44,6 +42,10 @@ router.post('/', async (req, res, next) => {
       res.status(201).json(user)
     }
   } catch (error) {
+    if (error.response.status === 404) {
+      res.status(404).send('No stock associated with that symbol.')
+      return
+    }
     next(error)
   }
 })

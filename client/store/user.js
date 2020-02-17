@@ -1,5 +1,6 @@
 import axios from 'axios'
 import history from '../history'
+import {authError} from './errors'
 
 /**
  * ACTION TYPES
@@ -47,8 +48,9 @@ export const auth = (
       firstName,
       lastName
     })
-  } catch (authError) {
-    return dispatch(getUser({error: authError}))
+  } catch (error) {
+    console.log('bad login goes here')
+    return dispatch(authError(error))
   }
 
   try {

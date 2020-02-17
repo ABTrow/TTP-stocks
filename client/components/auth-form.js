@@ -10,8 +10,8 @@ const AuthForm = props => {
   const {name, displayName, handleSubmit, error} = props
 
   return (
-    <div>
-      <form onSubmit={handleSubmit} name={name}>
+    <div className="form-box">
+      <form className="auth-form" onSubmit={handleSubmit} name={name}>
         {name === 'signup' && (
           <div>
             <label htmlFor="fullName">
@@ -37,7 +37,9 @@ const AuthForm = props => {
         </div>
         {error && error.response && <div> {error.response.data} </div>}
       </form>
-      <a href="/auth/google">{displayName} with Google</a>
+      <span>
+        <a href="/auth/google">{displayName} with Google</a>
+      </span>
     </div>
   )
 }
@@ -53,7 +55,7 @@ const mapLogin = state => {
   return {
     name: 'login',
     displayName: 'Login',
-    error: state.user.error
+    error: state.errors.authError
   }
 }
 
@@ -61,7 +63,7 @@ const mapSignup = state => {
   return {
     name: 'signup',
     displayName: 'Sign Up',
-    error: state.user.error
+    error: state.errors.authError
   }
 }
 
@@ -73,6 +75,10 @@ const mapDispatch = dispatch => {
 
       if (evt.target.fullName) {
         const splitIndex = evt.target.fullName.value.lastIndexOf(' ')
+        console.log(splitIndex)
+        if (splitIndex < 1) {
+          return
+        }
         firstName = evt.target.fullName.value.slice(0, splitIndex)
         lastName = evt.target.fullName.value.slice(splitIndex + 1)
       }

@@ -10,7 +10,7 @@ export const getQuote = symbol => async dispatch => {
     let {data} = await axios.get(`api/stocks/${symbol}`)
     dispatch(gotQuote(data))
   } catch (error) {
-    dispatch(buyError(error.response.data))
+    dispatch(buyError(error))
   }
 }
 

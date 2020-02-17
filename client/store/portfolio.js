@@ -1,5 +1,6 @@
 import axios from 'axios'
 import {updateCash} from './user'
+import {buyError} from './errors'
 
 const GOT_HOLDINGS = 'GOT_HOLDINGS'
 
@@ -30,7 +31,7 @@ export const buyStock = (symbol, shares) => async dispatch => {
     await dispatch(getHoldings(data.id))
     dispatch(updateCash(data.cash))
   } catch (error) {
-    console.error(error.status)
+    dispatch(buyError(error))
   }
 }
 

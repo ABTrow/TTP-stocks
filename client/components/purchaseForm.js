@@ -2,14 +2,14 @@ import React from 'react'
 import {connect} from 'react-redux'
 import {buyStock} from '../store/portfolio'
 import {getQuote} from '../store/stock'
+import {buyError} from '../store/errors'
 
 class PurchaseForm extends React.Component {
   constructor() {
     super()
     this.state = {
       symbol: '',
-      shares: 0,
-      error: ''
+      shares: 0
     }
   }
 
@@ -20,11 +20,15 @@ class PurchaseForm extends React.Component {
   handlePurchase = () => {
     event.preventDefault()
     if (this.state.shares % 1 !== 0) {
-      this.setState({error: 'Cannot by partial shares.'})
+      this.props.buyError('Cannot buy partial shares.')
+      return
+    }
+    if (this.state.shares <= 0) {
+      this.props.buyError('Must buy a positive number of shares.')
       return
     }
     this.props.buyStock(this.state.symbol, this.state.shares)
-    this.setState({symbol: '', shares: 0, error: ''})
+    this.setState({symbol: '', shares: 0})
   }
 
   handleQuote = () => {
@@ -33,6 +37,8 @@ class PurchaseForm extends React.Component {
   }
 
   render() {
+    let {error} = this.props
+
     return (
       <div id="purchase-form">
         <input
@@ -56,21 +62,21 @@ class PurchaseForm extends React.Component {
         <button type="submit" onClick={this.handlePurchase}>
           Purchase Shares
         </button>
-        {this.state.error && <div>{this.state.error}</div>}
-        {this.props.buyError && <div>{this.props.buyError}</div>}
+        {error && error.response && <div> {error.response.data} </div>}
       </div>
     )
   }
 }
 
 const mapState = state => ({
-  buyError: state.errors.buyError
+  error: state.errors.buyError
 })
 
 const mapDispatch = dispatch => {
   return {
     buyStock: (symbol, shares) => dispatch(buyStock(symbol, shares)),
-    getQuote: quote => dispatch(getQuote(quote))
+    getQuote: quote => dispatch(getQuote(quote)),
+    buyError: error => dispatch(buyError({response: {data: error}}))
   }
 }
 

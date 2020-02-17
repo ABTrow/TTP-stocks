@@ -50,3 +50,16 @@ td.right {
   display: flex;
   flex-direction: column;
 }
+
+.auth-form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.form-box {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
+}
