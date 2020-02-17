@@ -10,8 +10,6 @@ class Transactions extends React.Component {
   render() {
     let {transactions} = this.props
 
-    console.log(transactions)
-
     return (
       <div>
         <h1>Transactions:</h1>

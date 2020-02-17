@@ -5,7 +5,7 @@ import {connect} from 'react-redux'
 const PortfolioPage = props => {
   return (
     <div>
-      <h1>Portfolio - ${props.portfolioValue}</h1>
+      <h1>Portfolio - ${(props.portfolioValue + props.userCash).toFixed(2)}</h1>
       <div id="portfolio-page">
         <Portfolio />
         <Purchase />
@@ -15,7 +15,8 @@ const PortfolioPage = props => {
 }
 
 const mapState = state => ({
-  portfolioValue: state.portfolio.value
+  portfolioValue: state.portfolio.value,
+  userCash: state.user.cash
 })
 
 export default connect(mapState, null)(PortfolioPage)

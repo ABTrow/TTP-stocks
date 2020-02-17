@@ -15,6 +15,10 @@ router.get('/:symbol', async (req, res, next) => {
     })
     res.status(200).send(data)
   } catch (error) {
+    if (error.response.status === 404) {
+      res.status(404).send('No stock associated with that symbol')
+      return
+    }
     next(error)
   }
 })

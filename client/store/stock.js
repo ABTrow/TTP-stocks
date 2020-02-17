@@ -1,4 +1,5 @@
 import axios from 'axios'
+import {buyError} from './errors'
 
 const GOT_QUOTE = 'GOT_QUOTE'
 
@@ -9,7 +10,7 @@ export const getQuote = symbol => async dispatch => {
     let {data} = await axios.get(`api/stocks/${symbol}`)
     dispatch(gotQuote(data))
   } catch (error) {
-    console.error(error)
+    dispatch(buyError(error.response.data))
   }
 }
 

@@ -8,7 +8,8 @@ class PurchaseForm extends React.Component {
     super()
     this.state = {
       symbol: '',
-      shares: 0
+      shares: 0,
+      error: ''
     }
   }
 
@@ -18,8 +19,12 @@ class PurchaseForm extends React.Component {
 
   handlePurchase = () => {
     event.preventDefault()
+    if (this.state.shares % 1 !== 0) {
+      this.setState({error: 'Cannot by partial shares.'})
+      return
+    }
     this.props.buyStock(this.state.symbol, this.state.shares)
-    this.setState({symbol: '', shares: 0})
+    this.setState({symbol: '', shares: 0, error: ''})
   }
 
   handleQuote = () => {
@@ -51,10 +56,16 @@ class PurchaseForm extends React.Component {
         <button type="submit" onClick={this.handlePurchase}>
           Purchase Shares
         </button>
+        {this.state.error && <div>{this.state.error}</div>}
+        {this.props.buyError && <div>{this.props.buyError}</div>}
       </div>
     )
   }
 }
+
+const mapState = state => ({
+  buyError: state.errors.buyError
+})
 
 const mapDispatch = dispatch => {
   return {
@@ -63,4 +74,4 @@ const mapDispatch = dispatch => {
   }
 }
 
-export default connect(null, mapDispatch)(PurchaseForm)
+export default connect(mapState, mapDispatch)(PurchaseForm)
