@@ -56,7 +56,7 @@ class PurchaseForm extends React.Component {
           value={this.state.shares}
           onChange={event => this.handleChange(event)}
         />
-        <div>
+        <div className="button-box">
           <button type="submit" onClick={this.handleQuote}>
             Get Quote
           </button>
@@ -64,7 +64,10 @@ class PurchaseForm extends React.Component {
             Purchase Shares
           </button>
         </div>
-        {error && error.response && <div> {error.response.data} </div>}
+        {error &&
+          error.response && (
+            <div className="error"> {error.response.data} </div>
+          )}
       </div>
     )
   }

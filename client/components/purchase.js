@@ -8,7 +8,7 @@ const Purchase = props => {
     <div id="purchase">
       <h2>Cash - ${userCash}</h2>
       {stock && (
-        <div>
+        <div id="quote">
           {stock.symbol} {stock.companyName} {stock.latestPrice}
         </div>
       )}

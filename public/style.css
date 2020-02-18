@@ -1,23 +1,32 @@
+@import url('https://fonts.googleapis.com/css?family=Nunito&display=swap');
+
 body {
-  font-family: sans-serif;
+  font-family: 'Nunito', Arial, Helvetica, sans-serif;
   box-sizing: border-box;
-  background-color: #dceced;
-  padding: 0;
+  background: linear-gradient(#dceced, #eaf2f2);
+  height: 100vh;
+  margin: 0;
 }
 
 a {
   text-decoration: none;
+  color: #5b6384;
 }
 
 label {
   display: block;
 }
 
+h1 {
+  color: #5b6384;
+}
+
 nav {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  background-color: #d2dcdd;
+  background-color: #c2cccd;
+  padding: 0 3rem;
 }
 
 nav a {
@@ -45,46 +54,80 @@ td.right {
   text-align: right;
 }
 
+#transaction-table {
+  margin: 2rem;
+}
+
+.page-header {
+  padding: 0.5rem 2rem;
+}
+
+#portfolio-header {
+  display: flex;
+  align-items: center;
+}
+
 #portfolio-page {
   display: flex;
   justify-content: space-between;
   padding: 2rem;
 }
 
+#portfolio-page-divider {
+  width: 1px;
+  background-color: darkgrey;
+}
+
 #portfolio {
   width: 60%;
   padding-right: 1rem;
+  margin-right: 3rem;
+}
+
+#portfolio table {
+  width: 100%;
 }
 
 #purchase {
   display: flex;
   flex-direction: column;
+  justify-content: center;
   align-items: center;
   width: 40%;
-  border-left: 1px solid darkgrey;
-  padding: 0 2rem;
+  background-color: #d2dcdd;
+  box-shadow: 2px 2px 0px darkgray;
+  padding: 0rem 3rem 1rem 3rem;
+  margin-left: 3rem;
   text-align: center;
 }
 
 #purchase-form {
   display: flex;
   flex-direction: column;
+  justify-content: center;
   align-items: center;
   width: 80%;
 }
 
 #purchase-form input {
   margin-bottom: 0.5rem;
+  width: 100%;
+}
+
+#quote {
+  margin-bottom: 1rem;
 }
 
 .auth-form {
   display: flex;
   flex-direction: column;
+  justify-content: center;
   align-items: center;
-  width: 60%;
-  background-color: lightgray;
+  width: 50%;
+  height: 70%;
+  background-color: #d2dcdd;
   box-shadow: 2px 2px 0px darkgray;
-  padding: 2rem;
+  padding: 3rem;
 }
 
 .form-box {
@@ -96,8 +139,36 @@ td.right {
   height: 65vh;
 }
 
-.form-box input {
+.auth-form div {
+  margin: 1rem 0rem;
+}
+
+input {
+  width: 80%;
+  height: 2rem;
+  border: none;
+  text-align: center;
+}
+
+.auth-form button {
+  border-radius: 0;
+  border: none;
+  box-shadow: 2px 2px 0px darkgray;
   width: 60%;
+  height: 2rem;
+}
+
+.button-box {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}
+
+#purchase-form button {
+  border-radius: 0;
+  border: none;
+  box-shadow: 2px 2px 0px darkgray;
+  width: 40%;
   height: 2rem;
 }
 
@@ -113,6 +184,8 @@ td.right {
   color: darkgrey;
 }
 
-h1 {
-  margin: 0;
+.error {
+  margin: 0.5rem;
+  color: #d3971f;
+  text-decoration: underline;
 }

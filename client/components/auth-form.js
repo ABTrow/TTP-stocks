@@ -2,7 +2,7 @@ import React from 'react'
 import {connect} from 'react-redux'
 import PropTypes from 'prop-types'
 import {auth} from '../store'
-import {authError} from '../store/errors'
+import {authError, clearErrors} from '../store/errors'
 
 /**
  * COMPONENT
@@ -14,6 +14,7 @@ const AuthForm = props => {
     <div className="form-box">
       <form className="auth-form" onSubmit={handleSubmit} name={name}>
         <h1>{displayName}</h1>
+        <br />
         {name === 'signup' && (
           <div>
             <input name="fullName" type="text" placeholder="Full Name" />
@@ -28,7 +29,10 @@ const AuthForm = props => {
         <div>
           <button type="submit">{displayName}</button>
         </div>
-        {error && error.response && <div> {error.response.data} </div>}
+        {error &&
+          error.response && (
+            <div className="error"> {error.response.data} </div>
+          )}
       </form>
     </div>
   )
@@ -83,7 +87,8 @@ const mapDispatch = dispatch => {
       }
 
       dispatch(auth(email, password, formName, firstName, lastName))
-    }
+    },
+    clearErrors: () => dispatch(clearErrors())
   }
 }
 

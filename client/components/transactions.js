@@ -12,8 +12,8 @@ class Transactions extends React.Component {
 
     return (
       <div>
-        <h1>Transactions:</h1>
-        <table>
+        <h1 className="page-header">Transactions:</h1>
+        <table id="transaction-table">
           <tbody>
             {transactions.map(transaction => {
               return (
