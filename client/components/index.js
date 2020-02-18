@@ -4,11 +4,9 @@
  * having to figure out which file they belong to!
  */
 export {default as Navbar} from './navbar'
-export {default as UserHome} from './user-home'
 export {Login, Signup} from './auth-form'
 export {default as Portfolio} from './portfolio'
 export {default as Purchase} from './purchase'
-export {default as QuoteForm} from './quoteForm'
 export {default as PurchaseForm} from './purchaseForm'
 export {default as Transactions} from './transactions'
 export {default as PortfolioPage} from './portfolioPage'

@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import {connect} from 'react-redux'
-import {Link} from 'react-router-dom'
+import {NavLink} from 'react-router-dom'
 import {logout} from '../store'
 
 const Navbar = ({handleClick, isLoggedIn}) => (
@@ -10,18 +10,26 @@ const Navbar = ({handleClick, isLoggedIn}) => (
       <h1>TTP - Stocks</h1>
       {isLoggedIn ? (
         <div>
-          {/* The navbar will show these links after you log in */}
-          <Link to="/portfolio">Portfolio</Link>
-          <Link to="/transactions">Transactions</Link>
+          {/* The navbar will show these NavLinks after you log in */}
+          <NavLink activeClassName="active-link" to="/portfolio">
+            Portfolio
+          </NavLink>
+          <NavLink activeClassName="active-link" to="/transactions">
+            Transactions
+          </NavLink>
           <a href="#" onClick={handleClick}>
             Logout
           </a>
         </div>
       ) : (
         <div>
-          {/* The navbar will show these links before you log in */}
-          <Link to="/login">Sign In</Link>
-          <Link to="/signup">Register</Link>
+          {/* The navbar will show these NavLinks before you log in */}
+          <NavLink activeClassName="active-link" to="/login">
+            Sign In
+          </NavLink>
+          <NavLink activeClassName="active-link" to="/signup">
+            Register
+          </NavLink>
         </div>
       )}
     </nav>
