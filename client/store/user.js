@@ -49,13 +49,12 @@ export const auth = (
       lastName
     })
   } catch (error) {
-    console.log('bad login goes here')
     return dispatch(authError(error))
   }
 
   try {
     dispatch(getUser(res.data))
-    history.push('/home')
+    history.push('/portfolio')
   } catch (dispatchOrHistoryErr) {
     console.error(dispatchOrHistoryErr)
   }

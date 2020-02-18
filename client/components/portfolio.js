@@ -9,20 +9,32 @@ class Portfolio extends React.Component {
 
   render() {
     return (
-      <div>
+      <div id="portfolio">
         <table>
           <tbody>
             {this.props.portfolio.holdings.map(holding => {
+              if (holding.stockInfo.change > 0) {
+                holding.color = 'green'
+              } else if (holding.stockInfo.change < 0) {
+                holding.color = 'red'
+              } else {
+                holding.color = 'grey'
+              }
               return (
-                <tr key={holding.id}>
+                <tr key={holding.id} className={holding.color}>
                   <td>
                     {holding.stock.symbol}
                     <small> ({holding.stock.name})</small>
                   </td>
                   <td className="right">{holding.shares} Shares @</td>
-                  <td className="right">${holding.latestPrice.toFixed(2)}</td>
+                  <td className="right">
+                    ${holding.stockInfo.latestPrice.toFixed(2)}
+                  </td>
                   <td>
-                    Total: ${(holding.latestPrice * holding.shares).toFixed(2)}
+                    Total: $
+                    {(holding.stockInfo.latestPrice * holding.shares).toFixed(
+                      2
+                    )}
                   </td>
                 </tr>
               )

@@ -14,7 +14,7 @@ class PurchaseForm extends React.Component {
   }
 
   handleChange = event => {
-    this.setState({[event.target.name]: event.target.value})
+    this.setState({[event.target.name]: event.target.value.toUpperCase()})
   }
 
   handlePurchase = () => {
@@ -56,12 +56,14 @@ class PurchaseForm extends React.Component {
           value={this.state.shares}
           onChange={event => this.handleChange(event)}
         />
-        <button type="submit" onClick={this.handleQuote}>
-          Get Quote
-        </button>
-        <button type="submit" onClick={this.handlePurchase}>
-          Purchase Shares
-        </button>
+        <div>
+          <button type="submit" onClick={this.handleQuote}>
+            Get Quote
+          </button>
+          <button type="submit" onClick={this.handlePurchase}>
+            Purchase Shares
+          </button>
+        </div>
         {error && error.response && <div> {error.response.data} </div>}
       </div>
     )

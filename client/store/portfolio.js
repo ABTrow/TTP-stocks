@@ -14,10 +14,10 @@ export const getHoldings = userId => async dispatch => {
   try {
     let {data} = await axios.get(`/api/users/${userId}/holdings`)
     let formattedPortfolio = data.portfolio.map((holding, idx) => {
-      return {...holding, latestPrice: data.portfolioPrices[idx]}
+      return {...holding, stockInfo: data.portfolioInfo[idx]}
     })
     let totalValue = formattedPortfolio.reduce((a, b) => {
-      return a + b.shares * b.latestPrice
+      return a + b.shares * b.stockInfo.latestPrice
     }, 0)
     dispatch(gotHoldings(formattedPortfolio, totalValue))
   } catch (error) {

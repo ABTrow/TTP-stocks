@@ -3,44 +3,38 @@ const {User, Holding, Stock, Transaction} = require('../db/models')
 const axios = require('axios')
 module.exports = router
 
-router.get('/', async (req, res, next) => {
-  try {
-    const users = await User.findAll({
-      // explicitly select only the id and email fields - even though
-      // users' passwords are encrypted, it won't help if we just
-      // send everything to anyone who asks!
-      attributes: ['id', 'email']
-    })
-    res.json(users)
-  } catch (error) {
-    next(error)
+const authUser = (req, res, next) => {
+  if (!req.user || req.user.id !== Number(req.params.userId)) {
+    res.sendStatus(401)
+  } else {
+    next()
   }
-})
+}
 
-router.get('/:userId/holdings', async (req, res, next) => {
+router.get('/:userId/holdings', authUser, async (req, res, next) => {
   try {
     let portfolio = await Holding.findAll({
       where: {userId: req.params.userId},
       include: [{model: Stock}],
       order: [['createdAt', 'DESC']]
     })
-    let portfolioPrices = await Promise.all(
+    let portfolioInfo = await Promise.all(
       portfolio.map(async holding => {
         let {data} = await axios.get(
           `https://cloud.iexapis.com/stable/stock/${
             holding.stock.symbol
           }/quote?token=${process.env.IEX_SECRET}`
         )
-        return data.latestPrice
+        return data
       })
     )
-    res.send({portfolio, portfolioPrices})
+    res.send({portfolio, portfolioInfo})
   } catch (error) {
     next(error)
   }
 })
 
-router.get('/:userId/transactions', async (req, res, next) => {
+router.get('/:userId/transactions', authUser, async (req, res, next) => {
   try {
     let transactions = await Transaction.findAll({
       where: {userId: req.params.userId},

@@ -13,49 +13,34 @@ const AuthForm = props => {
   return (
     <div className="form-box">
       <form className="auth-form" onSubmit={handleSubmit} name={name}>
+        <h1>{displayName}</h1>
         {name === 'signup' && (
           <div>
-            <label htmlFor="fullName">
-              <small>Full Name</small>
-            </label>
-            <input name="fullName" type="text" />
+            <input name="fullName" type="text" placeholder="Full Name" />
           </div>
         )}
         <div>
-          <label htmlFor="email">
-            <small>Email</small>
-          </label>
-          <input name="email" type="text" />
+          <input name="email" type="text" placeholder="email" />
         </div>
         <div>
-          <label htmlFor="password">
-            <small>Password</small>
-          </label>
-          <input name="password" type="password" />
+          <input name="password" type="password" placeholder="password" />
         </div>
         <div>
           <button type="submit">{displayName}</button>
         </div>
         {error && error.response && <div> {error.response.data} </div>}
       </form>
-      <span>
-        <a href="/auth/google">{displayName} with Google</a>
-      </span>
     </div>
   )
 }
 
 /**
  * CONTAINER
- *   Note that we have two different sets of 'mapStateToProps' functions -
- *   one for Login, and one for Signup. However, they share the same 'mapDispatchToProps'
- *   function, and share the same Component. This is a good example of how we
- *   can stay DRY with interfaces that are very similar to each other!
  */
 const mapLogin = state => {
   return {
     name: 'login',
-    displayName: 'Login',
+    displayName: 'Sign In',
     error: state.errors.authError
   }
 }
@@ -63,7 +48,7 @@ const mapLogin = state => {
 const mapSignup = state => {
   return {
     name: 'signup',
-    displayName: 'Sign Up',
+    displayName: 'Register',
     error: state.errors.authError
   }
 }
