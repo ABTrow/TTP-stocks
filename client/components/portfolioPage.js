@@ -20,9 +20,6 @@ const PortfolioPage = props => {
         <div id="portfolio-page-divider" />
         <Purchase />
       </div>
-      <small>
-        <a href="https://iexcloud.io">Data provided by IEX Cloud</a>
-      </small>
     </div>
   )
 }

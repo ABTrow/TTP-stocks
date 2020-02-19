@@ -41,6 +41,9 @@ class Portfolio extends React.Component {
             })}
           </tbody>
         </table>
+        <small>
+          <a href="https://iexcloud.io">Data provided by IEX Cloud</a>
+        </small>
       </div>
     )
   }

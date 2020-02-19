@@ -9,7 +9,7 @@ class PurchaseForm extends React.Component {
     super()
     this.state = {
       symbol: '',
-      shares: 0
+      shares: 'shares'
     }
   }
 

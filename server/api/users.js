@@ -1,6 +1,6 @@
 const router = require('express').Router()
-const {User, Holding, Stock, Transaction} = require('../db/models')
-const axios = require('axios')
+const {Holding, Stock, Transaction} = require('../db/models')
+const getStock = require('./getStock')
 module.exports = router
 
 const authUser = (req, res, next) => {
@@ -20,12 +20,8 @@ router.get('/:userId/holdings', authUser, async (req, res, next) => {
     })
     let portfolioInfo = await Promise.all(
       portfolio.map(async holding => {
-        let {data} = await axios.get(
-          `https://cloud.iexapis.com/stable/stock/${
-            holding.stock.symbol
-          }/quote?token=${process.env.IEX_SECRET}`
-        )
-        return data
+        let stock = await getStock(holding.stock.symbol)
+        return stock
       })
     )
     res.send({portfolio, portfolioInfo})
@@ -38,7 +34,8 @@ router.get('/:userId/transactions', authUser, async (req, res, next) => {
   try {
     let transactions = await Transaction.findAll({
       where: {userId: req.params.userId},
-      include: [{model: Stock}]
+      include: [{model: Stock}],
+      order: [['createdAt', 'DESC']]
     })
     res.send(transactions)
   } catch (error) {
