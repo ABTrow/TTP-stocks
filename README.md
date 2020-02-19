@@ -7,3 +7,5 @@ A quick app for managing a mock stock portfolio.
 * Review a history of past transactions on the Transaction page
 
 Stock quotes provided by IEX.
+
+Deployed at <http://localhost:8080/portfolio>
