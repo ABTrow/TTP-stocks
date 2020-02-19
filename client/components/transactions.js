@@ -16,6 +16,7 @@ class Transactions extends React.Component {
         <h1 className="page-header">Transactions:</h1>
         <table id="transaction-table">
           <tbody>
+            {/* render a table row for each transaction */}
             {transactions.map(transaction => {
               let date = new Date(transaction.createdAt)
               return (

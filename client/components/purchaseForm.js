@@ -14,6 +14,7 @@ class PurchaseForm extends React.Component {
   }
 
   handleChange = event => {
+    // handleChange for controlled form
     this.setState({[event.target.name]: event.target.value.toUpperCase()})
   }
 
@@ -64,6 +65,7 @@ class PurchaseForm extends React.Component {
             Purchase Shares
           </button>
         </div>
+        {/* Conditionally render errors if there is an issue */}
         {error &&
           error.response && (
             <div className="error"> {error.response.data} </div>

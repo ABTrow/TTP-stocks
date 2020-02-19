@@ -13,6 +13,7 @@ class Portfolio extends React.Component {
       <div id="portfolio">
         <table>
           <tbody>
+            {/* Determine proper display color based on daily price change */}
             {this.props.portfolio.holdings.map(holding => {
               if (holding.stockInfo.change > 0) {
                 holding.color = 'green'
@@ -21,6 +22,7 @@ class Portfolio extends React.Component {
               } else {
                 holding.color = 'grey'
               }
+              // render table row with holding info
               return (
                 <tr key={holding.id} className={holding.color}>
                   <td>

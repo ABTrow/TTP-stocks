@@ -22,6 +22,10 @@ const Transaction = db.define('transaction', {
     validate: {
       min: 0
     },
+    /*
+      custom getters and setters store prices in DB as integers of pennies, but
+      return and recieve them from the server as floats of dollar values
+    */
     get() {
       return this.getDataValue('price') / 100
     },

@@ -1,6 +1,7 @@
 const router = require('express').Router()
 module.exports = router
 
+// routers to handle different API branches
 router.use('/users', require('./users'))
 router.use('/stocks', require('./stocks'))
 router.use('/transactions', require('./transactions'))

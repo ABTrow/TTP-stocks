@@ -4,12 +4,12 @@ module.exports = router
 
 router.post('/login', async (req, res, next) => {
   try {
+    // find user associated with email
     const user = await User.findOne({where: {email: req.body.email}})
+    // if user does not exist or password is incorrect send 401 error
     if (!user) {
-      console.log('No such user found:', req.body.email)
       res.status(401).send('Wrong username and/or password')
     } else if (!user.correctPassword(req.body.password)) {
-      console.log('Incorrect password for user:', req.body.email)
       res.status(401).send('Wrong username and/or password')
     } else {
       req.login(user, err => (err ? next(err) : res.json(user)))
@@ -24,6 +24,7 @@ router.post('/signup', async (req, res, next) => {
     const user = await User.create(req.body)
     req.login(user, err => (err ? next(err) : res.json(user)))
   } catch (err) {
+    // if error email provided is non-unique, send a 401 error
     if (err.name === 'SequelizeUniqueConstraintError') {
       res.status(401).send('User already exists')
     } else {
@@ -38,8 +39,7 @@ router.post('/logout', (req, res) => {
   res.redirect('/')
 })
 
+// get user info for persisting sessions
 router.get('/me', (req, res) => {
   res.json(req.user)
 })
-
-router.use('/google', require('./google'))

@@ -4,6 +4,7 @@ import {PurchaseForm} from './'
 import moneyFormatter from './moneyFormatter'
 
 const Purchase = props => {
+  // Determine proper color for rendering based on daily change
   let {stock, userCash} = props
   if (stock.change > 0) {
     stock.color = 'green'

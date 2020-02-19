@@ -3,6 +3,7 @@ const Stock = require('./stock')
 const Holding = require('./holding')
 const Transaction = require('./transaction')
 
+// associations between models defined below
 User.hasMany(Holding)
 Holding.belongsTo(User)
 

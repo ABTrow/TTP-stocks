@@ -67,6 +67,7 @@ const mapDispatch = dispatch => {
       let firstName, lastName
 
       if (formName === 'signup') {
+        // enforce password length
         if (password.length < 8) {
           dispatch(
             authError({
@@ -75,6 +76,7 @@ const mapDispatch = dispatch => {
           )
           return
         }
+        // confirm that two names are entered to be logged as first and last names
         const splitIndex = evt.target.fullName.value.lastIndexOf(' ')
         if (splitIndex < 1) {
           dispatch(
