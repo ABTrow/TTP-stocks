@@ -1,6 +1,7 @@
 import React from 'react'
 import {connect} from 'react-redux'
 import {getHoldings} from '../store/portfolio'
+import moneyFormatter from './moneyFormatter'
 
 class Portfolio extends React.Component {
   componentDidMount() {
@@ -28,13 +29,13 @@ class Portfolio extends React.Component {
                   </td>
                   <td className="right">{holding.shares} Shares @</td>
                   <td>
-                    ${holding.stockInfo.latestPrice.toFixed(2)}
-                    <small> ({holding.stockInfo.change}% today)</small>
+                    {moneyFormatter.format(holding.stockInfo.latestPrice)}
+                    <small> ({holding.stockInfo.changePercent}% today)</small>
                   </td>
                   <td>
-                    Total: $
-                    {(holding.stockInfo.latestPrice * holding.shares).toFixed(
-                      2
+                    Total:
+                    {moneyFormatter.format(
+                      holding.stockInfo.latestPrice * holding.shares
                     )}
                   </td>
                 </tr>

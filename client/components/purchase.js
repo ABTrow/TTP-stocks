@@ -1,6 +1,7 @@
 import React from 'react'
 import {connect} from 'react-redux'
 import {PurchaseForm} from './'
+import moneyFormatter from './moneyFormatter'
 
 const Purchase = props => {
   let {stock, userCash} = props
@@ -13,11 +14,12 @@ const Purchase = props => {
   }
   return (
     <div id="purchase">
-      <h2>Cash - ${userCash}</h2>
+      <h2>Cash - {moneyFormatter.format(userCash)}</h2>
       {stock.symbol && (
         <div id="quote" className={stock.color}>
-          {stock.symbol} {stock.companyName} {stock.latestPrice}{' '}
-          <small>({stock.change}% today)</small>
+          {stock.symbol} {stock.companyName}{' '}
+          {moneyFormatter.format(stock.latestPrice)}{' '}
+          <small>({stock.changePercent}% today)</small>
         </div>
       )}
       <PurchaseForm />

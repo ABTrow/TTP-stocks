@@ -1,6 +1,7 @@
 import React from 'react'
 import {Portfolio, Purchase} from '.'
 import {connect} from 'react-redux'
+import moneyFormatter from './moneyFormatter'
 
 const PortfolioPage = props => {
   let date = new Date()
@@ -9,7 +10,8 @@ const PortfolioPage = props => {
     <div>
       <div id="portfolio-header">
         <h1 className="page-header">
-          Portfolio - ${(props.portfolioValue + props.userCash).toFixed(2)}
+          Portfolio -{' '}
+          {moneyFormatter.format(props.portfolioValue + props.userCash)}
         </h1>
         <small>as of {date.toLocaleTimeString()}</small>
       </div>

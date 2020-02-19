@@ -1,6 +1,7 @@
 import React from 'react'
 import {connect} from 'react-redux'
 import {getTransactions} from '../store/transactions'
+import moneyFormatter from './moneyFormatter'
 
 class Transactions extends React.Component {
   componentDidMount() {
@@ -26,10 +27,14 @@ class Transactions extends React.Component {
                     ({transaction.stock.symbol} - {transaction.stock.name})
                   </td>
                   <td className="right">{transaction.shares} Shares @</td>
-                  <td className="right">${transaction.price.toFixed(2)}</td>
+                  <td className="right">
+                    {moneyFormatter.format(transaction.price)}
+                  </td>
                   <td>
-                    Total: $
-                    {(transaction.price * transaction.shares).toFixed(2)}
+                    Total:{' '}
+                    {moneyFormatter.format(
+                      transaction.price * transaction.shares
+                    )}
                   </td>
                 </tr>
               )
