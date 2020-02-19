@@ -24,8 +24,9 @@ class Routes extends Component {
         {isLoggedIn && (
           <Switch>
             {/* Routes placed here are only available after logging in */}
-            <Route path="/portfolio" component={PortfolioPage} />
             <Route path="/transactions" component={Transactions} />
+            {/* Portfolio page will render at '/portfolio' and as fallback on non-defined pages */}
+            <Route component={PortfolioPage} />
           </Switch>
         )}
         {/* Displays our Login component as a fallback */}
