@@ -16,9 +16,12 @@ class Transactions extends React.Component {
         <table id="transaction-table">
           <tbody>
             {transactions.map(transaction => {
+              let date = new Date(transaction.createdAt)
               return (
                 <tr key={transaction.id} className="transaction">
-                  <td className="">{transaction.type.toUpperCase()}</td>
+                  <td>{date.toLocaleDateString()}</td>
+                  <td>{date.toLocaleTimeString()}</td>
+                  <td>{transaction.type.toUpperCase()}</td>
                   <td>
                     ({transaction.stock.symbol} - {transaction.stock.name})
                   </td>

@@ -27,8 +27,9 @@ class Portfolio extends React.Component {
                     <small> ({holding.stock.name})</small>
                   </td>
                   <td className="right">{holding.shares} Shares @</td>
-                  <td className="right">
+                  <td>
                     ${holding.stockInfo.latestPrice.toFixed(2)}
+                    <small> ({holding.stockInfo.change}% today)</small>
                   </td>
                   <td>
                     Total: $

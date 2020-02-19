@@ -11,9 +11,7 @@ const PortfolioPage = props => {
         <h1 className="page-header">
           Portfolio - ${(props.portfolioValue + props.userCash).toFixed(2)}
         </h1>
-        <small>
-          as of {date.getHours()}:{date.getMinutes()}:{date.getSeconds()}
-        </small>
+        <small>as of {date.toLocaleTimeString()}</small>
       </div>
       <div id="portfolio-page">
         <Portfolio />

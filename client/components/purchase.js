@@ -4,12 +4,20 @@ import {PurchaseForm} from './'
 
 const Purchase = props => {
   let {stock, userCash} = props
+  if (stock.change > 0) {
+    stock.color = 'green'
+  } else if (stock.change < 0) {
+    stock.color = 'red'
+  } else {
+    stock.color = 'grey'
+  }
   return (
     <div id="purchase">
       <h2>Cash - ${userCash}</h2>
-      {stock && (
-        <div id="quote">
-          {stock.symbol} {stock.companyName} {stock.latestPrice}
+      {stock.symbol && (
+        <div id="quote" className={stock.color}>
+          {stock.symbol} {stock.companyName} {stock.latestPrice}{' '}
+          <small>({stock.change}% today)</small>
         </div>
       )}
       <PurchaseForm />
