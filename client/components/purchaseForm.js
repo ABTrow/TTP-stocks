@@ -70,6 +70,9 @@ class PurchaseForm extends React.Component {
           error.response && (
             <div className="error"> {error.response.data} </div>
           )}
+        <small>
+          <a href="https://iexcloud.io">Pricing data provided by IEX Cloud</a>
+        </small>
       </div>
     )
   }

@@ -168,6 +168,7 @@ input {
   display: flex;
   justify-content: space-between;
   width: 100%;
+  margin-bottom: 1rem;
 }
 
 #purchase-form button {
@@ -194,4 +195,8 @@ input {
   margin: 0.5rem;
   color: #d3971f;
   text-decoration: underline;
+}
+
+.nothing-here {
+  text-align: center;
 }

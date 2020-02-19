@@ -2,6 +2,7 @@ import axios from 'axios'
 import {buyError} from './errors'
 
 const GOT_QUOTE = 'GOT_QUOTE'
+const REMOVE_USER = 'REMOVE_USER'
 
 const gotQuote = stock => ({type: GOT_QUOTE, stock})
 
@@ -16,6 +17,8 @@ export const getQuote = symbol => async dispatch => {
 
 export default function(state = {}, action) {
   switch (action.type) {
+    case REMOVE_USER:
+      return {}
     case GOT_QUOTE:
       return action.stock
     default:

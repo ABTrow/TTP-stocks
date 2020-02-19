@@ -3,6 +3,7 @@ import {updateCash} from './user'
 import {buyError} from './errors'
 
 const GOT_HOLDINGS = 'GOT_HOLDINGS'
+const REMOVE_USER = 'REMOVE_USER'
 
 const gotHoldings = (holdings, totalValue) => ({
   type: GOT_HOLDINGS,
@@ -38,8 +39,13 @@ export const buyStock = (symbol, shares) => async dispatch => {
 /**
  * REDUCER
  */
-export default function(state = {holdings: [], totalValue: 0}, action) {
+
+const defaultState = {holdings: null, totalValue: 0}
+
+export default function(state = defaultState, action) {
   switch (action.type) {
+    case REMOVE_USER:
+      return defaultState
     case GOT_HOLDINGS:
       return {holdings: [...action.holdings], value: action.totalValue}
     default:

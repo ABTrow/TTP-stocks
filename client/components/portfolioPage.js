@@ -11,7 +11,8 @@ const PortfolioPage = props => {
       <div id="portfolio-header">
         <h1 className="page-header">
           Portfolio -{' '}
-          {moneyFormatter.format(props.portfolioValue + props.userCash)}
+          {props.portfolioValue &&
+            moneyFormatter.format(props.portfolioValue + props.userCash)}
         </h1>
         <small>as of {date.toLocaleTimeString()}</small>
       </div>
