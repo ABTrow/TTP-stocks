@@ -8,4 +8,4 @@ A quick app for managing a mock stock portfolio.
 
 Stock quotes provided by IEX.
 
-Deployed at <http://localhost:8080/portfolio>
+Deployed at <http://ttp-stocks.herokuapp.com/>
