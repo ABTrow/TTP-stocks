@@ -30,7 +30,10 @@ class Portfolio extends React.Component {
                   <td className="right">{holding.shares} Shares @</td>
                   <td>
                     {moneyFormatter.format(holding.stockInfo.latestPrice)}
-                    <small> ({holding.stockInfo.changePercent}% today)</small>
+                    <small>
+                      {' '}
+                      ({holding.stockInfo.changePercent.toFixed(2)}% today)
+                    </small>
                   </td>
                   <td>
                     Total:

@@ -19,7 +19,7 @@ const Purchase = props => {
         <div id="quote" className={stock.color}>
           {stock.symbol} {stock.companyName}{' '}
           {moneyFormatter.format(stock.latestPrice)}{' '}
-          <small>({stock.changePercent}% today)</small>
+          <small>({stock.changePercent.toFixed(2)}% today)</small>
         </div>
       )}
       <PurchaseForm />
